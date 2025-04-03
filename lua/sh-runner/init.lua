@@ -35,8 +35,8 @@ function M.run_shell_script(file_path, ...)
       end
     end
   else
-    vim.cmd("vsplit")
-    vim.cmd("resize 20")
+    vim.cmd("split")
+    vim.cmd("resize 15")
     vim.cmd("terminal " .. cmd)
 
     terminal_bufnr = vim.api.nvim_get_current_buf()
