@@ -15,9 +15,9 @@ function M.run_shell_script(file_path, ...)
   end
 
   local args = { ... }
-  local cmd = vim.fn.shellescape(file_path)
+  local cmd = file_path
   for _, arg in ipairs(args) do
-    cmd = cmd .. " " .. vim.fn.shellescape(arg)
+    cmd = cmd .. " " .. arg
   end
 
   vim.cmd("vsplit")
