@@ -66,7 +66,7 @@ function M.run_shell_script(file_path, ...)
     vim.cmd("wincmd L") -- Move para o extremo direito
     
     -- Abrir terminal e executar o comando
-    vim.cmd("terminal bash" .. cmd)
+    vim.cmd("terminal bash " .. cmd)
     
     -- Obter o buffer do terminal recém-criado
     terminal_bufnr = vim.api.nvim_get_current_buf()
