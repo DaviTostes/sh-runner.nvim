@@ -14,19 +14,63 @@ local function buffer_exists(bufnr)
   return vim.api.nvim_buf_is_valid(bufnr) and vim.fn.bufexists(bufnr) == 1
 end
 
--- Função principal para executar o arquivo shell
-function M.run_shell_script(file_path, ...)
-  -- Verificar se o arquivo existe
+-- Função para resolver o caminho do arquivo
+local function resolve_path(file_path)
+  -- Se o caminho começa com ~, expanda-o
+  if file_path:sub(1,1) == "~" then
+    file_path = vim.fn.expand(file_path)
+  end
+  
+  -- Se o caminho não é absoluto, torne-o absoluto
+  if file_path:sub(1,1) ~= "/" and file_path:match("^%a:") == nil then
+    -- Usando o diretório atual como base
+    local current_dir = vim.fn.getcwd()
+    file_path = current_dir .. "/" .. file_path
+  end
+  
+  -- Normalizar o caminho
+  file_path = vim.fn.fnamemodify(file_path, ":p")
+  
+  return file_path
+end
+
+-- Função para verificar se o arquivo existe e é executável
+local function check_file(file_path)
+  -- Verificar existência
   if vim.fn.filereadable(file_path) == 0 then
     vim.notify("Arquivo não encontrado: " .. file_path, vim.log.levels.ERROR)
+    return false
+  end
+  
+  -- Em sistemas Unix, verificar se é executável
+  if vim.fn.has("unix") == 1 then
+    local permissions = vim.fn.getfperm(file_path)
+    if not permissions:match("x") then
+      vim.notify("Aviso: O arquivo não tem permissão de execução. Adicionando permissão...", vim.log.levels.WARN)
+      vim.fn.system("chmod +x " .. vim.fn.shellescape(file_path))
+    end
+  end
+  
+  return true
+end
+
+-- Função principal para executar o arquivo shell
+function M.run_shell_script(file_path, ...)
+  -- Resolver e verificar o caminho do arquivo
+  file_path = resolve_path(file_path)
+  
+  -- Verificar debug
+  vim.notify("Caminho resolvido: " .. file_path, vim.log.levels.INFO)
+  
+  if not check_file(file_path) then
     return
   end
   
   -- Construir o comando com argumentos
   local args = {...}
-  local cmd = file_path
+  local cmd = vim.fn.shellescape(file_path)
   for _, arg in ipairs(args) do
-    cmd = cmd .. " " .. arg
+    cmd = cmd .. " " .. vim.fn.shellescape(arg)
   end
   
   -- Verificar se o terminal já existe
@@ -65,7 +109,8 @@ function M.setup(opts)
   -- Definir valores padrão para opções
   local default_opts = {
     command_name = 'RunShell',
-    position = 'right' -- 'right', 'left', 'top', 'bottom'
+    position = 'right', -- 'right', 'left', 'top', 'bottom'
+    debug = false       -- Mostrar mensagens de debug
   }
   
   -- Mesclar opções fornecidas com valores padrão
