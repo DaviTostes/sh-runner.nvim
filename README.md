@@ -16,16 +16,16 @@ A minimalist Neovim plugin that intelligently runs shell scripts in an integrate
 ### Using [packer.nvim](https://github.com/wbthomason/packer.nvim)
 
 ```lua
-use 'username/nvim-sh-runner'
+use 'davitostes/sh-runner.nvim'
 ```
 
 ### Using [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 {
-  'username/nvim-sh-runner',
+  'davitostes/sh-runner.nvim',
   config = function()
-    require('nvim-sh-runner').setup()
+    require('sh-runner').setup()
   end
 }
 ```
@@ -33,7 +33,7 @@ use 'username/nvim-sh-runner'
 ### Using [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```vim
-Plug 'username/nvim-sh-runner'
+Plug 'davitostes/sh-runner.nvim'
 ```
 
 ## ⚙️ Configuration
@@ -41,7 +41,7 @@ Plug 'username/nvim-sh-runner'
 The plugin works immediately after installation with no additional configuration needed. However, you can customize it if desired:
 
 ```lua
-require('nvim-sh-runner').setup({
+require('sh-runner').setup({
   -- Default values shown below
   terminal_height = 15,     -- Split height in lines
   command_name = 'RunShell' -- Command name
