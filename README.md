@@ -1,8 +1,6 @@
-# 🚀 nvim-sh-runner
+# 🚀 sh-runner
 
 A minimalist Neovim plugin that intelligently runs shell scripts in an integrated terminal.
-
-![nvim-sh-runner demo](https://github.com/username/nvim-sh-runner/assets/demo.gif)
 
 ## ✨ Features
 
