@@ -1,25 +1,27 @@
 # 🚀 nvim-sh-runner
 
-Um plugin minimalista para Neovim que executa scripts shell em um terminal integrado de forma inteligente.
+A minimalist Neovim plugin that intelligently runs shell scripts in an integrated terminal.
 
-## ✨ Funcionalidades
+![nvim-sh-runner demo](https://github.com/username/nvim-sh-runner/assets/demo.gif)
 
-- 💻 Execute scripts shell diretamente do Neovim com suporte a argumentos
-- 🔄 Reutilização inteligente de terminais (sem criar múltiplos buffers)
-- 🪟 Split automático com tamanho personalizável
-- 🛠️ API Lua moderna e eficiente
-- 🔍 Auto-completação de caminhos de arquivos
-- 🚫 Verificação de existência de arquivos
+## ✨ Features
 
-## 📦 Instalação
+- 💻 Run shell scripts directly from Neovim with argument support
+- 🔄 Smart terminal reuse (no multiple buffer creation)
+- 🪟 Automatic split with customizable size
+- 🛠️ Modern and efficient Lua API
+- 🔍 File path auto-completion
+- 🚫 File existence verification
 
-### Usando [packer.nvim](https://github.com/wbthomason/packer.nvim)
+## 📦 Installation
+
+### Using [packer.nvim](https://github.com/wbthomason/packer.nvim)
 
 ```lua
 use 'username/nvim-sh-runner'
 ```
 
-### Usando [lazy.nvim](https://github.com/folke/lazy.nvim)
+### Using [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 {
@@ -30,70 +32,70 @@ use 'username/nvim-sh-runner'
 }
 ```
 
-### Usando [vim-plug](https://github.com/junegunn/vim-plug)
+### Using [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```vim
 Plug 'username/nvim-sh-runner'
 ```
 
-## ⚙️ Configuração
+## ⚙️ Configuration
 
-O plugin funciona imediatamente após a instalação, sem necessidade de configuração adicional. No entanto, você pode personalizá-lo se desejar:
+The plugin works immediately after installation with no additional configuration needed. However, you can customize it if desired:
 
 ```lua
 require('nvim-sh-runner').setup({
-  -- Valores padrão mostrados abaixo
-  terminal_height = 15,     -- Altura do split em linhas
-  command_name = 'RunShell' -- Nome do comando
+  -- Default values shown below
+  terminal_height = 15,     -- Split height in lines
+  command_name = 'RunShell' -- Command name
 })
 ```
 
-## 🚦 Uso
+## 🚦 Usage
 
-Execute qualquer script shell com argumentos usando o comando:
+Run any shell script with arguments using the command:
 
 ```
-:RunShell /caminho/para/script.sh arg1 arg2 arg3
+:RunShell /path/to/script.sh arg1 arg2 arg3
 ```
 
-Exemplos:
+Examples:
 
 ```
 :RunShell ./build.sh --release
 :RunShell ~/scripts/deploy.sh staging --force
 ```
 
-## 💡 Dicas de uso
+## 💡 Usage Tips
 
-- Mapeie o comando para uma tecla para acesso rápido:
+- Map the command to a key for quick access:
   ```lua
   vim.keymap.set('n', '<leader>r', ':RunShell %<CR>', { noremap = true, silent = true })
   ```
 
-- Use com arquivos temporários para execução rápida de código:
+- Use with temporary files for quick code execution:
   ```lua
   vim.keymap.set('n', '<leader>R', ':write !sh<CR>', { noremap = true, silent = false })
   ```
 
-## 🤝 Contribuindo
+## 🤝 Contributing
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
+Contributions are welcome! Feel free to open issues or submit pull requests.
 
-1. Fork este repositório
-2. Crie sua branch de recurso (`git checkout -b feature/amazing-feature`)
-3. Commit suas alterações (`git commit -m 'Add some amazing feature'`)
-4. Push para a branch (`git push origin feature/amazing-feature`)
-5. Abra um Pull Request
+1. Fork this repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📝 Licença
+## 📝 License
 
-Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
+Distributed under the MIT License. See `LICENSE` for more information.
 
-## 🙏 Agradecimentos
+## 🙏 Acknowledgements
 
-- Inspirado pelos workflows de desenvolvimento em terminal integrado
-- Construído com 💙 para a comunidade Neovim
+- Inspired by integrated terminal development workflows
+- Built with 💙 for the Neovim community
 
 ---
 
-⭐ Não se esqueça de deixar uma estrela se você achou este plugin útil!
+⭐ Don't forget to star this repository if you found this plugin useful!
