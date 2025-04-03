@@ -14,26 +14,6 @@ local function buffer_exists(bufnr)
   return vim.api.nvim_buf_is_valid(bufnr) and vim.fn.bufexists(bufnr) == 1
 end
 
--- Função para resolver o caminho do arquivo
-local function resolve_path(file_path)
-  -- Se o caminho começa com ~, expanda-o
-  if file_path:sub(1,1) == "~" then
-    file_path = vim.fn.expand(file_path)
-  end
-  
-  -- Se o caminho não é absoluto, torne-o absoluto
-  if file_path:sub(1,1) ~= "/" and file_path:match("^%a:") == nil then
-    -- Usando o diretório atual como base
-    local current_dir = vim.fn.getcwd()
-    file_path = current_dir .. "/" .. file_path
-  end
-  
-  -- Normalizar o caminho
-  file_path = vim.fn.fnamemodify(file_path, ":p")
-  
-  return file_path
-end
-
 -- Função para verificar se o arquivo existe e é executável
 local function check_file(file_path)
   -- Verificar existência
@@ -56,12 +36,6 @@ end
 
 -- Função principal para executar o arquivo shell
 function M.run_shell_script(file_path, ...)
-  -- Resolver e verificar o caminho do arquivo
-  file_path = resolve_path(file_path)
-  
-  -- Verificar debug
-  vim.notify("Caminho resolvido: " .. file_path, vim.log.levels.INFO)
-  
   if not check_file(file_path) then
     return
   end
@@ -92,7 +66,7 @@ function M.run_shell_script(file_path, ...)
     vim.cmd("wincmd L") -- Move para o extremo direito
     
     -- Abrir terminal e executar o comando
-    vim.cmd("terminal " .. cmd)
+    vim.cmd("terminal bash" .. cmd)
     
     -- Obter o buffer do terminal recém-criado
     terminal_bufnr = vim.api.nvim_get_current_buf()
