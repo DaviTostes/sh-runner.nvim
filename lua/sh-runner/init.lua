@@ -15,7 +15,7 @@ function M.run_shell_script(file_path, ...)
   end
 
   local args = { ... }
-  local cmd = file_path .. " " .. args
+  local cmd = file_path .. " " .. table.concat(args, " ")
 
   local win_count = #vim.api.nvim_tabpage_list_wins(0)
   if win_count <= 1 then
