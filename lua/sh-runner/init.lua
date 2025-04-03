@@ -18,7 +18,7 @@ function M.run_shell_script(file_path, ...)
   local cmd = file_path .. " " .. args
 
   local win_count = vim.api.nvim_tabpage_list_wins(0)
-  if win_count == 1 then
+  if win_count <= 1 then
     vim.cmd("vsplit")
     vim.cmd("wincmd L")
   end
