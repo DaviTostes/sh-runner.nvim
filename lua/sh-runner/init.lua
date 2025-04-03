@@ -15,10 +15,7 @@ function M.run_shell_script(file_path, ...)
   end
 
   local args = { ... }
-  local cmd = file_path
-  for _, arg in ipairs(args) do
-    cmd = cmd .. " " .. arg
-  end
+  local cmd = file_path .. " " .. args
 
   vim.cmd("vsplit")
   vim.cmd("wincmd L")
