@@ -12,17 +12,20 @@ end
 local function split_window(position, size)
   if position == "bottom" then
     vim.cmd("botright split")
+  vim.api.nvim_win_set_height(0, size)
   elseif position == "top" then
     vim.cmd("topleft split")
+  vim.api.nvim_win_set_height(0, size)
   elseif position == "left" then
     vim.cmd("topleft vsplit")
+    vim.api.nvim_win_set_width(0, size)
   elseif position == "right" then
     vim.cmd("botright vsplit")
+    vim.api.nvim_win_set_width(0, size)
   else
     print("Invalid position: " .. position)
     return
   end
-  vim.api.nvim_win_set_height(0, size)
 end
 
 function M.run_shell_script(file_path, opts, ...)
