@@ -11,17 +11,13 @@ end
 
 local function split_window(position, size)
   if position == "bottom" then
-    vim.cmd("split")
-    vim.cmd("wincmd J")
+    vim.cmd("botright split")
   elseif position == "top" then
     vim.cmd("topleft split")
-    vim.cmd("wincmd K")
   elseif position == "left" then
     vim.cmd("topleft vsplit")
-    vim.cmd("wincmd H")
   elseif position == "right" then
     vim.cmd("botright vsplit")
-    vim.cmd("wincmd L")
   else
     print("Invalid position: " .. position)
     return
@@ -38,7 +34,7 @@ function M.run_shell_script(file_path, opts, ...)
 
   local win_count = #vim.api.nvim_tabpage_list_wins(0)
   if win_count <= 1 then
-    split_window(opts.position, opts.height)
+    split_window(opts.position, opts.size)
   end
 
   vim.cmd("terminal bash " .. cmd)
@@ -52,6 +48,7 @@ function M.setup(opts)
   local default_opts = {
     command_name = 'RunShell',
     position = 'right', -- 'right', 'left', 'top', 'bottom'
+    size = 20,
     debug = false
   }
 
