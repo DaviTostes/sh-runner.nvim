@@ -51,7 +51,7 @@ function M.setup(opts)
   local default_opts = {
     command_name = 'RunShell',
     position = 'right', -- 'right', 'left', 'top', 'bottom'
-    size = 20,
+    size = 50,
     debug = false
   }
 
