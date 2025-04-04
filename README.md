@@ -5,7 +5,6 @@ A minimalist Neovim plugin that intelligently runs shell scripts in an integrate
 ## ✨ Features
 
 - 💻 Run shell scripts directly from Neovim with argument support
-- 🔄 Smart terminal reuse (no multiple buffer creation)
 - 🪟 Automatic split with customizable size
 - 🛠️ Modern and efficient Lua API
 - 🔍 File path auto-completion
@@ -43,7 +42,8 @@ The plugin works immediately after installation with no additional configuration
 ```lua
 require('sh-runner').setup({
   -- Default values shown below
-  terminal_height = 15,     -- Split height in lines
+  height = 15,     -- Split height in lines
+  position = 'right' -- right, left, bottom, up  
   command_name = 'RunShell' -- Command name
 })
 ```

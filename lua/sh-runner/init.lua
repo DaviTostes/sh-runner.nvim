@@ -9,7 +9,26 @@ local function check_file(file_path)
   return true
 end
 
-function M.run_shell_script(file_path, ...)
+local function create_split(position, height)
+  local cmd = ""
+
+  if position == "bottom" then
+    cmd = height .. "split"
+  elseif position == "top" then
+    cmd = height .. "topleft split"
+  elseif position == "left" then
+    cmd = height .. "vsplit | topleft"
+  elseif position == "right" then
+    cmd = height .. "vsplit | botright"
+  else
+    print("Invalid position: " .. position)
+    return
+  end
+
+  vim.cmd(cmd)
+end
+
+function M.run_shell_script(file_path, opts, ...)
   if not check_file(file_path) then
     return
   end
@@ -18,8 +37,7 @@ function M.run_shell_script(file_path, ...)
 
   local win_count = #vim.api.nvim_tabpage_list_wins(0)
   if win_count <= 1 then
-    vim.cmd("vsplit")
-    vim.cmd("wincmd L")
+    create_split(opts.position, opts.height)
   end
 
   vim.cmd("terminal bash " .. cmd)
@@ -51,7 +69,7 @@ function M.setup(opts)
       for i = 2, #cmd_opts.fargs do
         table.insert(args, cmd_opts.fargs[i])
       end
-      M.run_shell_script(cmd_opts.fargs[1], unpack(args))
+      M.run_shell_script(cmd_opts.fargs[1], M.options, unpack(args))
     end,
     {
       nargs = '+',
