@@ -9,23 +9,23 @@ local function check_file(file_path)
   return true
 end
 
-local function create_split(position, height)
-  local cmd = ""
-
+local function split_window(position, size)
   if position == "bottom" then
-    cmd = height .. "split"
+    vim.cmd(size .. "split")
+    vim.cmd("wincmd J") -- move to bottom
   elseif position == "top" then
-    cmd = height .. "topleft split"
+    vim.cmd(size .. "topleft split")
+    vim.cmd("wincmd K") -- move to top
   elseif position == "left" then
-    cmd = height .. "vsplit | topleft"
+    vim.cmd(size .. "topleft vsplit")
+    vim.cmd("wincmd H") -- move to left
   elseif position == "right" then
-    cmd = height .. "vsplit | botright"
+    vim.cmd(size .. "botright vsplit")
+    vim.cmd("wincmd L") -- move to right
   else
     print("Invalid position: " .. position)
     return
   end
-
-  vim.cmd(cmd)
 end
 
 function M.run_shell_script(file_path, opts, ...)
@@ -37,7 +37,7 @@ function M.run_shell_script(file_path, opts, ...)
 
   local win_count = #vim.api.nvim_tabpage_list_wins(0)
   if win_count <= 1 then
-    create_split(opts.position, opts.height)
+    split_window(opts.position, opts.height)
   end
 
   vim.cmd("terminal bash " .. cmd)
@@ -79,4 +79,5 @@ function M.setup(opts)
   )
 end
 
+return M
 return M
