@@ -42,7 +42,7 @@ The plugin works immediately after installation with no additional configuration
 ```lua
 require('sh-runner').setup({
   -- Default values shown below
-  height = 15,     -- Split height in lines
+  size = 15,     -- Split size in lines
   position = 'right' -- right, left, bottom, up  
   command_name = 'RunShell' -- Command name
 })
